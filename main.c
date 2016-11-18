@@ -34,10 +34,18 @@ void compare_str()
     while ((read = getline(&line, &len, fp)) != -1)
     {
         int value = strcmp(line, uri_tmp);
+        g_print("%s -- %s",line,uri_tmp);
         if (value == 0)
+        {
             webkit_web_view_load_uri(webView, uri);
+            printf("%s\n", "Cumple");
+        }
+
         else
+        {
             printf("no cumple\n");
+        }
+
         char *find_view = strstr(uri, "ve.google.com/open");
         if (find_view != 0)
             webkit_web_view_load_uri(webView, uri);
@@ -105,23 +113,31 @@ on_aceptar_button_clicked (GtkButton *button,
 
 void
 on_close_button_clicked (GtkWidget *widget,
-                            gpointer data)
+                        gpointer data)
 {
     gtk_window_close (GTK_WINDOW(main_window));
 }
 
 void
-on_cancelar_button_clicked (GtkButton *button,
-                            gpointer   user_data)
+on_cancel_button_clicked (GtkButton *button,
+                          gpointer   user_data)
 {
     gtk_widget_hide(password_dialog);
 }
 
 void
 on_home_button_clicked (GtkButton *button,
-                            gpointer   user_data)
+                        gpointer   user_data)
 {
     webkit_web_view_load_uri (webView, "http://www.munisatipo.gob.pe/index.php/galerias");
+  //system("thunar");
+}
+
+void
+on_home2_button_clicked (GtkButton *button,
+                        gpointer   user_data)
+{
+    webkit_web_view_load_uri (webView, "http://192.168.3.9/Sistema_Tramite_PCM/cInterfaseUsuario_SITD/consultaTramite.php");
   //system("thunar");
 }
 
@@ -134,15 +150,15 @@ on_refresh_button_clicked (GtkButton *button,
 
 void
 on_back_button_clicked (GtkButton *button,
-                            gpointer   user_data)
+                      gpointer   user_data)
 {
     webkit_web_view_go_back (webView);
 }
 // handler signals-------------------------------------------
 gint
 on_window_delete_event( GtkWidget *widget,
-                   GdkEvent  *event,
-                   gpointer   data )
+                        GdkEvent  *event,
+                        gpointer   data )
 {
         g_print ("delete event occurred\n");
         gtk_widget_show_all (GTK_WIDGET(password_dialog));
@@ -151,8 +167,8 @@ on_window_delete_event( GtkWidget *widget,
 
 gint
 on_password_dialog_delete_event(GtkWidget *widget,
-                   GdkEvent  *event,
-                   gpointer   user_data)
+                                GdkEvent  *event,
+                                gpointer   user_data)
 {
     gtk_widget_hide(widget);
 }
@@ -163,14 +179,15 @@ main (int argc, char *argv[])
     gtk_init (&argc, &argv);
 
     builder = gtk_builder_new ();
-    gtk_builder_add_from_file (builder, "gui.glade", NULL);
+    gtk_builder_add_from_file (builder, "gui2.glade", NULL);
 
     main_window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
     password_dialog = GTK_WIDGET(gtk_builder_get_object (builder, "password_dialog"));
     webkit_view = GTK_WIDGET(gtk_builder_get_object (builder, "viewport"));
     webView = WEBKIT_WEB_VIEW(webkit_web_view_new());
     password_entry = GTK_WIDGET(gtk_builder_get_object (builder, "password_entry"));
-    gtk_window_fullscreen (GTK_WINDOW(main_window));
+    //gtk_window_fullscreen (GTK_WINDOW(main_window));
+    //gtk_window_maximize (GTK_WINDOW(main_window));
 
     gtk_container_add (GTK_CONTAINER (webkit_view), GTK_WIDGET (webView));
 
