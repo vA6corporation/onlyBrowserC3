@@ -26,7 +26,7 @@ void compare_str()
     size_t len = 0;
     ssize_t read;
 
-    fp = fopen("program.txt", "r");
+    fp = fopen("/usr/local/bin/program.txt", "r");
     if (fp == NULL)
         printf("%s\n", "no se encontro fichero");
     strcat(uri_tmp, "\n" );
@@ -129,7 +129,7 @@ void
 on_home_button_clicked (GtkButton *button,
                         gpointer   user_data)
 {
-    webkit_web_view_load_uri (webView, "http://www.munisatipo.gob.pe/index.php/galerias");
+    webkit_web_view_load_uri (webView, "http://www.munisatipo.gob.pe/");
   //system("thunar");
 }
 
@@ -179,20 +179,20 @@ main (int argc, char *argv[])
     gtk_init (&argc, &argv);
 
     builder = gtk_builder_new ();
-    gtk_builder_add_from_file (builder, "gui2.glade", NULL);
+    gtk_builder_add_from_file (builder, "/usr/local/bin/gui2.glade", NULL);
 
     main_window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
     password_dialog = GTK_WIDGET(gtk_builder_get_object (builder, "password_dialog"));
     webkit_view = GTK_WIDGET(gtk_builder_get_object (builder, "viewport"));
     webView = WEBKIT_WEB_VIEW(webkit_web_view_new());
     password_entry = GTK_WIDGET(gtk_builder_get_object (builder, "password_entry"));
-    //gtk_window_fullscreen (GTK_WINDOW(main_window));
+    gtk_window_fullscreen (GTK_WINDOW(main_window));
     //gtk_window_maximize (GTK_WINDOW(main_window));
 
     gtk_container_add (GTK_CONTAINER (webkit_view), GTK_WIDGET (webView));
 
     gtk_builder_connect_signals (builder,NULL);
-    webkit_web_view_load_uri (webView, "http://www.munisatipo.gob.pe/index.php/galerias");
+    webkit_web_view_load_uri (webView, "http://www.munisatipo.gob.pe/");
     gtk_window_set_default_size (GTK_WINDOW(main_window),800,800);
     gtk_widget_show(GTK_WIDGET(webView));
     g_signal_connect (webView, "decide-policy", G_CALLBACK (decide_policy_cb), NULL);
