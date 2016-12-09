@@ -1,6 +1,7 @@
 #include <gtk/gtk.h>
 #include <webkit2/webkit2.h>
 #include <string.h>
+#include <stdlib.h>
 
 GtkBuilder *builder;
 GtkWidget *main_window;
@@ -196,6 +197,8 @@ main (int argc, char *argv[])
     gtk_window_set_default_size (GTK_WINDOW(main_window),800,800);
     gtk_widget_show(GTK_WIDGET(webView));
     g_signal_connect (webView, "decide-policy", G_CALLBACK (decide_policy_cb), NULL);
+    system("shutdown -h 17:30");//apagado del systema
+
 
     gtk_main ();
 
