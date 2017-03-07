@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=MuniSatipo
+Comment=Web viewer del modulo
+Exec=/home/vampirodx/.local/muniSatipo/bin
+Icon=/home/vampirodx/.local/muniSatipo/logo.png
+Terminal=false
+StartupWMClass=Telegram
+Type=Application
+Categories=Development;
+MimeType=x-scheme-handler/tg;
+X-Desktop-File-Install-Version=0.23

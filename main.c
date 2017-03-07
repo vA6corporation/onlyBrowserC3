@@ -27,7 +27,7 @@ void compare_str()
     size_t len = 0;
     ssize_t read;
 
-    fp = fopen("/usr/local/bin/program.txt", "r");
+    fp = fopen("/home/vampirodx/.local/muniSatipo/program.txt", "r");
     if (fp == NULL)
         printf("%s\n", "no se encontro fichero");
     strcat(uri_tmp, "\n" );
@@ -180,7 +180,7 @@ main (int argc, char *argv[])
     gtk_init (&argc, &argv);
 
     builder = gtk_builder_new ();
-    gtk_builder_add_from_file (builder, "/usr/local/bin/gui2.glade", NULL);
+    gtk_builder_add_from_file (builder, "/home/vampirodx/.local/muniSatipo/gui2.glade", NULL);
 
     main_window = GTK_WIDGET(gtk_builder_get_object(builder, "window"));
     password_dialog = GTK_WIDGET(gtk_builder_get_object (builder, "password_dialog"));
