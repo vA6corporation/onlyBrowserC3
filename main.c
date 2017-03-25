@@ -5,13 +5,12 @@
 
 GtkBuilder *builder;
 GtkWidget *main_window;
-GtkWidget *password_dialog;
 GtkWidget *password_entry;
 GtkWidget *notebook;
 GtkWidget *webkit_view;
-GtkWidget *new_viewport;
-GtkRevealer *revealer;
-GtkEntry *urlEntry;
+GtkRevealer *uri_revealer;
+GtkRevealer *password_revealer;
+GtkEntry *url_entry;
 
 WebKitWebView *webView;
 
@@ -102,7 +101,7 @@ decide_policy_cb (WebKitWebView *webView,
             if (compare == TRUE && compare2 == FALSE) {
                 g_print ("Cargado>> : %s", current_uri);
                 webkit_policy_decision_use (decision);
-                gtk_entry_set_text (urlEntry, current_uri);
+                gtk_entry_set_text (url_entry, current_uri);
                 break;
             } else {
                 webkit_policy_decision_ignore (decision);
@@ -125,12 +124,6 @@ decide_policy_cb (WebKitWebView *webView,
         case WEBKIT_POLICY_DECISION_TYPE_RESPONSE:
             response = WEBKIT_RESPONSE_POLICY_DECISION (decision);
             g_print("\nNo estamos seguros\n");
-            navigation_action = webkit_navigation_policy_decision_get_navigation_action
-                                                                    (navigation_decision);
-            uri_request = webkit_navigation_action_get_request
-                                            (navigation_action);
-            current_uri = webkit_uri_request_get_uri (uri_request);
-
             //webkit_policy_decision_ignore (decision);
             break;
         default:
@@ -144,7 +137,6 @@ decide_policy_cb (WebKitWebView *webView,
 void
 on_aceptar_button_clicked (GtkButton *button,
                             gpointer user_data) {
-    g_print("hola");
     gchar pass[] = "123";
     const gchar *entry_text;
     entry_text = gtk_entry_get_text (GTK_ENTRY(password_entry));
@@ -153,6 +145,9 @@ on_aceptar_button_clicked (GtkButton *button,
 
     if (check == 1) {
         gtk_main_quit ();
+    } else {
+        gtk_entry_set_text (GTK_ENTRY(password_entry), "");
+        gtk_widget_grab_focus (password_entry);
     }
 }
 
@@ -165,7 +160,7 @@ on_close_button_clicked (GtkWidget *widget,
 void
 on_cancel_button_clicked (GtkButton *button,
                           gpointer   user_data) {
-    gtk_widget_hide(password_dialog);
+    gtk_revealer_set_reveal_child (password_revealer, FALSE);
 }
 
 void
@@ -197,16 +192,11 @@ on_window_delete_event (GtkWidget *widget,
                         GdkEvent  *event,
                         gpointer   data ) {
         g_print ("delete event occurred\n");
-        gtk_widget_show_all (GTK_WIDGET(password_dialog));
+        gtk_revealer_set_reveal_child (password_revealer, TRUE);
+        gtk_widget_grab_focus (password_entry);
         return TRUE;
 }
 
-gint
-on_password_dialog_delete_event (GtkWidget *widget,
-                                GdkEvent  *event,
-                                gpointer   user_data) {
-    gtk_widget_hide(widget);
-}
 //-----------------------------------------------------------
 int
 main (int argc, char *argv[]) {
@@ -216,13 +206,15 @@ main (int argc, char *argv[]) {
     gtk_builder_add_from_file (builder, "/home/vampirodx/.local/muniSatipo/gui2.glade", NULL);
 
     main_window = GTK_WIDGET (gtk_builder_get_object (builder, "window"));
-    password_dialog = GTK_WIDGET (gtk_builder_get_object (builder, "password_dialog"));
     webkit_view = GTK_WIDGET (gtk_builder_get_object (builder, "viewport"));
     webView = WEBKIT_WEB_VIEW (webkit_web_view_new ());
     password_entry = GTK_WIDGET (gtk_builder_get_object (builder, "password_entry"));
-    urlEntry = GTK_ENTRY (gtk_builder_get_object (builder, "urlEntry"));
-    revealer = GTK_REVEALER (gtk_builder_get_object (builder, "revealer"));
-    gtk_revealer_set_reveal_child (revealer, FALSE);
+    url_entry = GTK_ENTRY (gtk_builder_get_object (builder, "url_entry"));
+    password_entry = GTK_WIDGET (gtk_builder_get_object (builder, "password_entry"));
+    uri_revealer = GTK_REVEALER (gtk_builder_get_object (builder, "uri_revealer"));
+    password_revealer = GTK_REVEALER (gtk_builder_get_object (builder, "password_revealer"));
+    gtk_revealer_set_reveal_child (uri_revealer, FALSE);
+    gtk_revealer_set_reveal_child (password_revealer, FALSE);
 
     gtk_container_add (GTK_CONTAINER (webkit_view), GTK_WIDGET (webView));
 
