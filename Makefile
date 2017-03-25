@@ -3,9 +3,11 @@ all:
 run:
 	LIBGL_DRI3_DISABLE=1 ./bin
 install:
+	rm -R ~/.local/muniSatipo
 	mkdir ~/.local/muniSatipo
 	cp bin ~/.local/muniSatipo/
-	cp program.txt ~/.local/muniSatipo/
+	cp url_aceptados.txt ~/.local/muniSatipo/
+	cp url_denegados.txt ~/.local/muniSatipo/
 	cp gui2.glade ~/.local/muniSatipo/
 	cp logo.png ~/.local/muniSatipo/
 	cp muniSatipo.desktop ~/.local/share/applications/
