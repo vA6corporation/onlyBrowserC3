@@ -225,8 +225,8 @@ main (int argc, char *argv[]) {
     g_signal_connect (webView, "decide-policy", G_CALLBACK (decide_policy_cb), NULL);
     system ("shutdown -h 17:30");//apagado del systema
 
-    gtk_window_fullscreen (GTK_WINDOW(main_window));
-    //gtk_window_maximize (GTK_WINDOW (main_window));
+    //gtk_window_fullscreen (GTK_WINDOW(main_window));
+    gtk_window_maximize (GTK_WINDOW (main_window));
 
     gtk_main ();
 
