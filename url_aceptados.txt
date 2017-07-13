@@ -1,4 +1,6 @@
 http://www.munisatipo.gob.pe/
+http://192.168.3.9/Sistema_Tramite_PCM/cInterfaseUsuario_SITD/consultaTramite.php
+http://200.37.187.89/transito/public/general/buscador-licencias
 https://drive.google.com/open?id=
 https://drive.google.com/file
 https://www.google.com/maps/embed?pb

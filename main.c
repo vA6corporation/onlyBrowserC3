@@ -176,6 +176,12 @@ on_home2_button_clicked (GtkButton *button,
 }
 
 void
+on_home3_button_clicked (GtkButton *button,
+                        gpointer   user_data) {
+    webkit_web_view_load_uri (webView, "http://200.37.187.89/transito/public/general/buscador-licencias");
+}
+
+void
 on_refresh_button_clicked (GtkButton *button,
                             gpointer   user_data) {
     webkit_web_view_reload (webView);
